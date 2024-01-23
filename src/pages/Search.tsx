@@ -14,16 +14,21 @@ import PokemonCardGrid from "../components/PokemonCardGrid";
 function Search() {
   const handleChange = debounce((value: string) => getPokemon(value), 300);
   const isLoading = useAppSelector(({ app: { isLoading } }) => isLoading);
-
   const dispatch = useAppDispatch();
+  // Destructuring the pokemons here and returning the pokemons
   const { allPokemon, randomPokemons } = useAppSelector(
     ({ pokemon }) => pokemon
   );
 
+  // State change Function: whenever state changes for the pokemon this dispatches the pokemons
   useEffect(() => {
     dispatch(getInitialPokemonData());
   }, [dispatch]);
 
+/*------------------------------------------
+>>Optimized functionality for displaying limited amount of Pokemon : this is used to display the first 20 random pokemons at first and once generated then we are subtracting them  from the generated ones so that we always get the unique pokemons as the user searches for it.
+>>This data is being provided by the getPokemonsData.
+*/
   useEffect(() => {
     if (allPokemon) {
       const clonedPokemons = [...allPokemon];

@@ -30,12 +30,16 @@ export default function Navbar() {
   ];
   const location = useLocation();
   const dispatch = useAppDispatch();
+
+  // Grabbing the current location of the routes on which the pointer is currently placed.
   useEffect(() => {
     const index = navigationRoutes.findIndex(({ route }) =>
       location.pathname.includes(route)
     );
     ul(index);
   }, [location.pathname, navigationRoutes]);
+
+  // Function for Creating an underline in the selected navbar 
   function ul(index: number) {
     var underlines = document.querySelectorAll<HTMLElement>(".underline");
     for (var i = 0; i < underlines.length; i++) {
@@ -50,6 +54,7 @@ export default function Navbar() {
       </div>
       <div className="data">
         <ul>
+          {/* due to this we will have long underline effect */}
           <div className="underline"></div>
           <div className="underline"></div>
           <div className="underline"></div>
